@@ -10,7 +10,7 @@ class StateProviderScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final counter = ref.watch( counterProvider );
-    final darkMode = ref.watch( darkModeProvider );
+    final isDarkMode = ref.watch( darkModeProvider );
     final userName = ref.watch( userNameProvider );
     return Scaffold(
       appBar: AppBar(
@@ -23,7 +23,7 @@ class StateProviderScreen extends ConsumerWidget {
 
             IconButton(
               // icon: 
-              icon: darkMode
+              icon: isDarkMode
                 ? const Icon( Icons.dark_mode_outlined, size: 100 )
                 : const Icon( Icons.light_mode_outlined, size: 100 ),
               onPressed: () {
