@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_app/config/config.dart';
 import 'package:riverpod_app/presentation/providers/providers.dart';
 
 
@@ -10,6 +11,7 @@ class StateProviderScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final counter = ref.watch( counterProvider );
     final darkMode = ref.watch( darkModeProvider );
+    final userName = ref.watch( userNameProvider );
     return Scaffold(
       appBar: AppBar(
         title: const Text('State Provider'),
@@ -29,7 +31,7 @@ class StateProviderScreen extends ConsumerWidget {
               },
             ),
 
-            const Text('Fernando Herrera', style: TextStyle(fontSize: 25 )),
+            Text(userName, style: const TextStyle(fontSize: 25 )),
 
             TextButton.icon(
               icon: const Icon( Icons.add, size: 50,),
@@ -46,7 +48,9 @@ class StateProviderScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         label: const Text('Nombre aleatorio'),
         icon: const Icon( Icons.refresh_rounded ),
-        onPressed: () {},
+        onPressed: () {
+          ref.read( userNameProvider.notifier ).changeName( RandomGenerator.getRandomName() );
+        },
       ),
     );
   }

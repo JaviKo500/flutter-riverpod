@@ -20,3 +20,13 @@ class DarkMode extends _$DarkMode {
     state = !state;
   }
 }
+
+@riverpod
+class UserName extends _$UserName {
+  @override
+  String build() => '@JaViKo.500';
+
+  void changeName( String name ) {
+    state = name;
+  }
+}
