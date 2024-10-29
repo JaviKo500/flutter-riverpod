@@ -9,6 +9,7 @@ class StateProviderScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final counter = ref.watch( counterProvider );
+    final darkMode = ref.watch( darkModeProvider );
     return Scaffold(
       appBar: AppBar(
         title: const Text('State Provider'),
@@ -19,9 +20,13 @@ class StateProviderScreen extends ConsumerWidget {
             const Spacer(flex: 1,),
 
             IconButton(
-              // icon: const Icon( Icons.light_mode_outlined, size: 100 ),
-              icon: const Icon( Icons.dark_mode_outlined, size: 100 ),
-              onPressed: () {},
+              // icon: 
+              icon: darkMode
+                ? const Icon( Icons.dark_mode_outlined, size: 100 )
+                : const Icon( Icons.light_mode_outlined, size: 100 ),
+              onPressed: () {
+                ref.read(darkModeProvider.notifier).toggleThemeMode();
+              },
             ),
 
             const Text('Fernando Herrera', style: TextStyle(fontSize: 25 )),

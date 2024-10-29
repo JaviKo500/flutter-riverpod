@@ -20,5 +20,19 @@ final counterProvider = AutoDisposeNotifierProvider<Counter, int>.internal(
 );
 
 typedef _$Counter = AutoDisposeNotifier<int>;
+String _$darkModeHash() => r'04279d31e7f3546b4de56cca965baa70f888ec4b';
+
+/// See also [DarkMode].
+@ProviderFor(DarkMode)
+final darkModeProvider = AutoDisposeNotifierProvider<DarkMode, bool>.internal(
+  DarkMode.new,
+  name: r'darkModeProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$darkModeHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$DarkMode = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
