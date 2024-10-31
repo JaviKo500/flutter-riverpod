@@ -31,7 +31,7 @@ class _TodoView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentFilter = ref.watch( todoCurrentFilterProvider );
-    final listTodos = ref.watch( todosProvider );
+    final listTodos = ref.watch( filteredTodosProvider );
     return Column(
       children: [
         const ListTile(
