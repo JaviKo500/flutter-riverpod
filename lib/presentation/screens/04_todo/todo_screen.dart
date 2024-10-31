@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_app/config/helpers/random_generator.dart';
 import 'package:riverpod_app/presentation/providers/providers.dart';
 
 
-class TodoScreen extends StatelessWidget {
+class TodoScreen extends ConsumerWidget {
   const TodoScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref ) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('State Provider + Providers'),
@@ -15,7 +16,9 @@ class TodoScreen extends StatelessWidget {
       body: const _TodoView(),
       floatingActionButton: FloatingActionButton(
         child: const Icon( Icons.add ),
-        onPressed: () {},
+        onPressed: () {
+          ref.read( todosProvider.notifier ).createTodo( RandomGenerator.getRandomName() );
+        },
       ),
     );
   }
@@ -28,6 +31,7 @@ class _TodoView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentFilter = ref.watch( todoCurrentFilterProvider );
+    final listTodos = ref.watch( todosProvider );
     return Column(
       children: [
         const ListTile(
@@ -51,11 +55,15 @@ class _TodoView extends ConsumerWidget {
         /// Listado de personas a invitar
         Expanded(
           child: ListView.builder(
+            itemCount: listTodos.length,
             itemBuilder: (context, index) {
+              final todo = listTodos[index];
               return SwitchListTile(
-                title: const Text('Juan carlos'),
-                value: true, 
-                onChanged: ( value ) {}
+                title: Text( todo.description ),
+                value: todo.done ? true : false, 
+                onChanged: ( value ) {
+
+                }
               );
             },
           ),
