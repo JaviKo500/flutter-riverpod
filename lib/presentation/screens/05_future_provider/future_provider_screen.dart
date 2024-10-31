@@ -20,10 +20,27 @@ class FutureProviderScreen extends ConsumerWidget {
           loading: () => const CircularProgressIndicator(),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon( Icons.refresh ),
-        onPressed: () {  },
-      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: UniqueKey(),
+            child: const Icon( Icons.refresh ),
+            onPressed: () { 
+              ref.invalidate( pokemonNameProvider );
+              ref.read( pokemonIdProvider.notifier ).nextPokemon();
+            },
+          ),
+          const SizedBox(height: 10,),
+          FloatingActionButton(
+            heroTag: UniqueKey(),
+            child: const Icon( Icons.minimize_rounded ),
+            onPressed: () { 
+              ref.read( pokemonIdProvider.notifier ).previousPokemon();
+            },
+          ),
+        ],
+      )
     );
   }
 }
